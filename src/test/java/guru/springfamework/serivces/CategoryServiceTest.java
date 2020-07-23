@@ -54,6 +54,7 @@ public class CategoryServiceTest {
         category.setName(NAME);
 
         when(categoryRepository.findByName(anyString())).thenReturn(category);
+
         //when
         CategoryDTO categoryDTO = categoryService.getCategoryByName(NAME);
 
