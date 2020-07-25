@@ -43,7 +43,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void getAllCustomers() throws Exception {
+    public void getAllCustomersTest() throws Exception {
         CustomerDTO customer1 = new CustomerDTO();
         customer1.setFirstName(NAME1);
         customer1.setLastName(NAME2);
@@ -63,7 +63,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void getCustomerById() throws Exception {
+    public void getCustomerByIdTest() throws Exception {
         //given
         CustomerDTO customer = new CustomerDTO();
         customer.setFirstName(NAME1);
@@ -73,7 +73,7 @@ public class CustomerControllerTest {
         when(customerService.getCustomerById(anyLong())).thenReturn(customer);
 
         //when
-        mockMvc.perform(get("/api/v1/customer/1")
+        mockMvc.perform(get("/api/v1/customers/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo("Steve")));
