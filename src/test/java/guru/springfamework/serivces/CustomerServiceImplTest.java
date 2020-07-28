@@ -78,8 +78,7 @@ public class CustomerServiceImplTest {
         //given
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName("Jim");
-//        customerDTO.setLastName("Johnson");
-//        customerDTO.setCustomerUrl("");
+        customerDTO.setLastName("Johnson");
 
         Customer savedCustomer = new Customer();
         savedCustomer.setFirstName(customerDTO.getFirstName());
@@ -93,6 +92,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstName(),savedDto.getFirstName());
+        assertEquals(customerDTO.getLastName(),savedDto.getLastName());
         assertEquals("/api/v1/customer/1", savedDto.getCustomerUrl());
     }
 }

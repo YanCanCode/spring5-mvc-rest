@@ -99,6 +99,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
                 .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo(NAME1)))
+                .andExpect(jsonPath("$.lastName", equalTo(NAME2)))
                 .andExpect(jsonPath("$.customerUrl", equalTo("/api/v1/customers/1")));
     }
 }
