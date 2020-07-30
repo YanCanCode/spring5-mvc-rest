@@ -24,12 +24,12 @@ public class CustomerServiceImplTest {
 
     CustomerMapper customerMapper = CustomerMapper.INSTANCE;
 
-    CustomerServiceImpl customerService = new CustomerServiceImpl();
+    CustomerServiceImpl customerService;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        customerService=new CustomerServiceImpl();
+        customerService = new CustomerServiceImpl();
         customerService.setCustomerMapper(customerMapper);
         customerService.setCustomerRepository(customerRepository);
 

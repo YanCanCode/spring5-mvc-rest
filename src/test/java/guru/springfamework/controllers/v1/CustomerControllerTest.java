@@ -88,20 +88,20 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
     @Test
     public void createNewCustomer() throws Exception {
         //given
-        CustomerDTO customer = new CustomerDTO();
-        customer.setFirstName(NAME1);
-        customer.setLastName(NAME2);
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName(NAME1);
+        customerDTO.setLastName(NAME2);
 
         CustomerDTO returnDTO = new CustomerDTO();
-        returnDTO.setFirstName(customer.getFirstName());
-        returnDTO.setLastName(customer.getLastName());
+        returnDTO.setFirstName(customerDTO.getFirstName());
+        returnDTO.setLastName(customerDTO.getLastName());
         returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-        when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
+        when(customerService.createNewCustomer(customerDTO)).thenReturn(returnDTO);
 
         mockMvc.perform(post("/api/v1/customers/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(customer)))
+                .content(asJsonString(customerDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstName", equalTo(NAME1)))
                 .andExpect(jsonPath("$.lastName", equalTo(NAME2)))
@@ -162,6 +162,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
 
         verify(customerService).deleteCustomer(anyLong());
     }
+
 
     @Test
     public void testNotFoundException() throws Exception {

@@ -3,6 +3,7 @@ package guru.springfamework.services;
 import guru.springfamework.api.v1.mapper.VendorMapper;
 import guru.springfamework.api.v1.model.VendorDTO;
 import guru.springfamework.controllers.v1.VendorController;
+import guru.springfamework.domain.Vendor;
 import guru.springfamework.repositories.VendorRepository;
 import org.springframework.stereotype.Service;
 
@@ -39,26 +40,49 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public VendorDTO getVendorById(Long id) {
-        return null;
+        return vendorRepository.findById(id)
+                .map(vendorMapper::vendorToVendorDTO)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public VendorDTO createVendor(VendorDTO vendorDTO) {
-        return null;
+        return saveAndReturnDTO(vendorMapper.vendorDtoToVendor(vendorDTO));
+    }
+
+    private VendorDTO saveAndReturnDTO(Vendor vendor) {
+        Vendor savedVendor = vendorRepository.save(vendor);
+
+        VendorDTO returnDTO = vendorMapper.vendorToVendorDTO(savedVendor);
+
+        returnDTO.setVendorUrl(getVendorUrl(savedVendor.getId()));
+
+        return returnDTO;
     }
 
     @Override
     public void deleteVendor(Long id) {
-
+        vendorRepository.deleteById(id);
     }
 
     @Override
     public VendorDTO patchVendor(Long id, VendorDTO vendorDTO) {
-        return null;
+        return vendorRepository.findById(id).map(vendor -> {
+            if(vendorDTO.getName() != null) {
+                vendor.setName(vendorDTO.getName());
+            }
+            VendorDTO returnDTO = vendorMapper.vendorToVendorDTO(vendorRepository.save(vendor));
+
+            returnDTO.setVendorUrl(getVendorUrl(id));
+
+            return returnDTO;
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public VendorDTO saveVendorByDTO(Long id, VendorDTO vendorDTO) {
-        return null;
+        Vendor vendor = vendorMapper.vendorDtoToVendor(vendorDTO);
+        vendor.setId(id);
+        return saveAndReturnDTO(vendor);
     }
 }

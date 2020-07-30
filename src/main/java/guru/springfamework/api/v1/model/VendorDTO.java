@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VendorDTO {
+
     private String name;
     private String vendorUrl;
 }
