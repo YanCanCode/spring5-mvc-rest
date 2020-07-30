@@ -1,4 +1,4 @@
-package guru.springfamework.serivces;
+package guru.springfamework.services;
 
 public class ResourceNotFoundException extends RuntimeException {
 
